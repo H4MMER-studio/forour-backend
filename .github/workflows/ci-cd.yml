@@ -1,13 +1,13 @@
-name: FastAPI CI/CD
+name: ForOur CI/CD
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master ]
   pull_request:
-    branches: [ develop ]
+    branches: [ master ]
 
 jobs:
-  build:
+  continuous-integration:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -31,4 +31,24 @@ jobs:
     - name: Run Tests
       run: |
         pytest
+  
+  continuous-deployment:
+    runs-on: ubuntu-latest
+    needs: [ continuous-integration ]
 
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Create CodeDeploy Deployment
+        id: deploy
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ secrets.CODE_DEPLOY_APPLICATION_NAME }} \
+            --deployment-group-name ${{ secrets.CODE_DEPLOY_GROUP_NAME }} \
+            --deployment-config-name ${{ secrets.CODE_DEPLOY_CONFIG_NAME }} \
+            --github-location repository=${{ github.repository }}, commitId=${{ github.sha }}

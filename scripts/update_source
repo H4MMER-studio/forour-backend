@@ -1,0 +1,4 @@
+# !/bin/bash
+
+cd /home/ubuntu/build/fourour-backend
+git pull origin master
