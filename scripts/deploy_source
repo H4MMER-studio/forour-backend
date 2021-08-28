@@ -1,0 +1,4 @@
+# !/bin/bash
+
+cd /home/ubuntu/build/forour-backend
+git clone https://github.com/week-with-me/forour-backend.git
