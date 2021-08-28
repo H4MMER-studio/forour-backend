@@ -15,7 +15,7 @@ hooks:
       timeout: 300
       runas: root
   AfterInstall:
-    - location: scripts/update_source
+    - location: scripts/deploy_source
       runas: root
   ApplicationStart:
     - location: scripts/start_server

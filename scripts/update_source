@@ -1,4 +1,0 @@
-# !/bin/bash
-
-cd /home/ubuntu/build/forour-backend
-git pull origin master
