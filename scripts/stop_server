@@ -1,0 +1,4 @@
+# !/bin/bash
+
+cd /home/ubuntu/build/forour-backend
+docker-compose down
