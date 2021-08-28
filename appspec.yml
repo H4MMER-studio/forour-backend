@@ -1,8 +1,14 @@
 version: 0.0
 os: linux
 files:
-  - source: .
+  - source: /
     destination: /home/ubuntu/build/forour-backend
+permissions:
+  - object: /home/ubuntu/build/forour-backend
+    mode: 744
+    owner: root
+    type:
+      - directory     
 hooks:
   BeforeInstall:
     - location: scripts/stop_server
