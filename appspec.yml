@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: .
-    destination: /home/ubuntu/build
+    destination: /home/ubuntu/build/forour-backend
 hooks:
   BeforeInstall:
     - location: scripts/stop_server
