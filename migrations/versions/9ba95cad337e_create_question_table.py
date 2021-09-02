@@ -27,4 +27,3 @@ def upgrade():
 
 def downgrade():
     op.drop_table("questions")
-    pass
