@@ -1,9 +1,13 @@
+import os
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+
+# from app.core import local_database_settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -24,6 +28,16 @@ target_metadata = None
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
+print('server: ', os.getenv("POSTGRES_SERVER", "local"))
+
+def get_url():
+    user     = os.getenv("POSTGRES_USER", "forour")
+    password = os.getenv("POSTGRES_PASSWORD", "")
+    server   = os.getenv("POSTGRES_SERVER", "localhost")
+    db       = os.getenv("POSTGRES_DB", "forour")
+
+    return f"postgresql://{user}:{password}@{server}/{db}"
+
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
@@ -37,7 +51,7 @@ def run_migrations_offline():
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = get_url()
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -56,15 +70,18 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
-        prefix="sqlalchemy.",
+    configuration = config.get_section(config.config_ini_section)
+    configuration["postgresql.url"] = get_url()
+    connectable   = engine_from_config(
+        configuration=configuration,
+        prefix="postgresql.",
         poolclass=pool.NullPool,
     )
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata
         )
 
         with context.begin_transaction():
