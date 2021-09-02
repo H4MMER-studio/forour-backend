@@ -17,8 +17,14 @@ depends_on = None
 
 
 def upgrade():
-    pass
+    op.create_table(
+        "questions",
+        sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
+        sa.Column("content", sa.Text(), nullable=False),
+        sa.PrimaryKeyConstraint("id")
+    )
 
 
 def downgrade():
+    op.drop_table("questions")
     pass

@@ -1,3 +1,5 @@
 from app.schemas.question import (
-                            QuestionRead
+                            QuestionRead,
+                            QuestionCreate,
+                            QuestionUpdate
                             )

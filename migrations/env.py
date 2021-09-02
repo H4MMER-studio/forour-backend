@@ -1,3 +1,5 @@
+import os
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -5,7 +7,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app.core import local_database_settings
+# from app.core import local_database_settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -26,15 +28,15 @@ target_metadata = None
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-def get_url():
-    type     = local_database_settings.TYPE
-    user     = local_database_settings.USER
-    password = local_database_settings.PASSWORD
-    host     = local_database_settings.HOST
-    port     = local_database_settings.PORT
-    db       = local_database_settings.DB
+print('server: ', os.getenv("POSTGRES_SERVER", "local"))
 
-    return f"{type}://{user}:{password}@{host}:{port}/{db}"
+def get_url():
+    user     = os.getenv("POSTGRES_USER", "forour")
+    password = os.getenv("POSTGRES_PASSWORD", "")
+    server   = os.getenv("POSTGRES_SERVER", "localhost")
+    db       = os.getenv("POSTGRES_DB", "forour")
+
+    return f"postgresql://{user}:{password}@{server}/{db}"
 
 
 def run_migrations_offline():

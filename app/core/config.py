@@ -1,3 +1,5 @@
+import os
+
 from pydantic import BaseSettings
 
 
@@ -7,12 +9,11 @@ class ProjectSettings(BaseSettings):
 
 
 class LocalDatabaseSettings(BaseSettings):
-    TYPE: str     = "postgresql"
-    USER: str     = "forour"
-    PASSWORD: str = "ForOur!@34"
-    HOST: str     = "localhost"
-    PORT: int     = 5432
-    DB: str       = "forour"
+    USER     = os.getenv("POSTGRES_USER", "forour")
+    PASSWORD = os.getenv("POSTGRES_PASSWORD", "")
+    SERVER   = os.getenv("POSTGRES_SERVER", "localhost")
+    DB       = os.getenv("POSTGRES_DB", "forour")
+    URL      = f"postgresql://{USER}:{PASSWORD}@{SERVER}/{DB}"
 
 
 project_settings        = ProjectSettings()
