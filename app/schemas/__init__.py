@@ -1,6 +1,8 @@
 from app.schemas.question import (
                             QuestionCreate,
-                            QuestionUpdate
+                            QuestionUpdate,
+                            GetQuestionsResponse,
+                            GetQuestionResponse
                             )
 from app.schemas.answer   import (
                             AnswerCreate,
