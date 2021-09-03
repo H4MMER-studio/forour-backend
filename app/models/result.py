@@ -2,7 +2,7 @@ import enum
 
 from typing   import Optional
 
-from sqlmodel import SQLModel, Field, Enum, Column
+from sqlmodel import SQLModel, Field, Enum, Column, Relationship
 
 
 class Personality(str, enum.Enum):
@@ -26,6 +26,7 @@ class Personality(str, enum.Enum):
 
 class Result(SQLModel, table=True):
     __tablename__ = "results"
+
     id: Optional[int] = Field(default=None, primary_key=True)
     flower: str
     description: str
@@ -33,3 +34,6 @@ class Result(SQLModel, table=True):
     personality: Personality = Field(
         sa_column=Column("personality", Enum(Personality), nullable=False)
     )
+    to_whom: str
+    user_id: int = Field(foreign_key="users.id")
+    # anniversary_id: int = Field(foreign_key="anniversaries_id")
