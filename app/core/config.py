@@ -8,13 +8,13 @@ class ProjectSettings(BaseSettings):
     COMMON_API: str = "/api"
 
 
-class LocalDatabaseSettings(BaseSettings):
+class DatabaseSettings(BaseSettings):
     USER     = os.getenv("POSTGRES_USER", "forour")
-    PASSWORD = os.getenv("POSTGRES_PASSWORD", "")
-    SERVER   = os.getenv("POSTGRES_SERVER", "localhost")
+    PASSWORD = os.getenv("POSTGRES_PASSWORD", "ForOur!234")
+    SERVER   = os.getenv("POSTGRES_SERVER", "forour.cqba6h2mznen.ap-northeast-2.rds.amazonaws.com")
     DB       = os.getenv("POSTGRES_DB", "forour")
     URL      = f"postgresql://{USER}:{PASSWORD}@{SERVER}/{DB}"
 
 
-project_settings        = ProjectSettings()
-local_database_settings = LocalDatabaseSettings()
+project_settings  = ProjectSettings()
+database_settings = DatabaseSettings()

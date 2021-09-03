@@ -1,9 +1,10 @@
+from typing   import Dict
 from sqlmodel import SQLModel
 
 
 class AnswerBase(SQLModel):
-    content_a: dict
-    content_b: dict
+    content_a: Dict[str, str]
+    content_b: Dict[str, str]
 
 
 class AnswerCreate(AnswerBase):
@@ -24,6 +25,6 @@ class AnswerUpdate(AnswerBase):
     class Config:
         schema_extra = {
             "example": {
-                
+
             }
         }
