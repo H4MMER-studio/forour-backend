@@ -4,13 +4,18 @@ from fastapi           import APIRouter, status, Depends
 from fastapi.responses import JSONResponse
 
 from app.crud          import question
-from app.schemas       import QuestionCreate, QuestionUpdate
+from app.schemas       import (
+                        QuestionCreate,
+                        QuestionUpdate,
+                        GetQuestionResponse,
+                        GetQuestionsResponse
+                        )
 from app.database      import get_session
 
 
 router = APIRouter()
 
-@router.get("/{id}")
+@router.get("/{id}", response_model=GetQuestionResponse)
 def get_qustion(id: int, db=Depends(get_session)):
     try:
         data = question.get(db=db, id=id)
@@ -27,7 +32,7 @@ def get_qustion(id: int, db=Depends(get_session)):
         )
 
 
-@router.get("")
+@router.get("", response_model=GetQuestionsResponse)
 def get_questions(db=Depends(get_session)):
     try:
         data = question.get_all(db=db)
