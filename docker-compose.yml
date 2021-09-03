@@ -8,3 +8,13 @@ services:
       - .:/app
     ports:
       - 8000:8000
+
+  db:
+    image: postgres:12.7
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=forour
+      - POSTGRES_PASSWORD=ForOur!234
+      - POSTGRES_DB=forour
