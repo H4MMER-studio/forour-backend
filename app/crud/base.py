@@ -27,11 +27,22 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         finally:
             db.close()
 
+    def get_all(self, db):
+        try:
+            statement = select(self.model)
+            instance  = db.exec(statement).all()
+            result    = jsonable_encoder(instance)
+
+            return result
+        
+        finally:
+            db.close()
 
     def get_multi(self, db, skip, limit):
         try:
-            instance = db.exec(select(self.model).offset(skip).limit(limit)).all()
-            result   = jsonable_encoder(instance)
+            statement = select(self.model).offset(skip).limit(limit)
+            instance  = db.exec(statement).all()
+            result    = jsonable_encoder(instance)
 
             return result
 

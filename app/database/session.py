@@ -1,10 +1,9 @@
 from sqlmodel import SQLModel, Session, create_engine
 
-from app.core import local_database_settings
+from app.core import database_settings
 
 
-database_url = local_database_settings.URL
-engine       = create_engine(url=database_url, echo=True)
+engine       = create_engine(url=database_settings.URL, echo=True)
 
 
 def create_db_and_tables():
