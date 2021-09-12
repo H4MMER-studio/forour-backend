@@ -1,7 +1,7 @@
 from app.schemas.response import SuccessResponseBase
 
 
-class GetResultsResponse(SuccessResponseBase):
+class GetResultResponse(SuccessResponseBase):
 
     class Config:
         schema_extra = {

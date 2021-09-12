@@ -11,7 +11,7 @@ from app.schemas.answer      import (
 from app.schemas.result      import (
                                 ResultCreate,
                                 ResultUpdate,
-                                GetResultsResponse
+                                GetResultResponse
                                 )               
 from app.schemas.anniversary import (
                                 AnniversaryCreate,

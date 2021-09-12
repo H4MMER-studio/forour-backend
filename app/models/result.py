@@ -36,4 +36,4 @@ class Result(SQLModel, table=True):
     personality: Personality = Field(
         sa_column=Column("personality", Enum(Personality), nullable=False)
     )
-    anniversary_id: int = Field(foreign_key="anniversaries_id")
+    anniversary_id: int = Field(foreign_key="anniversaries.id")
