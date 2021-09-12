@@ -1,3 +1,4 @@
+from typing import Optional
 from sqlmodel   import SQLModel
 
 from app.models import AnniversaryType
@@ -5,6 +6,7 @@ from app.models import AnniversaryType
 
 class AnniversaryBase(SQLModel):
     name: AnniversaryType
+    image: Optional[str]
 
 
 class AnniversaryCreate(AnniversaryBase):

@@ -37,3 +37,7 @@ class Anniversary(SQLModel, table=True):
     __tablename__ = "anniversaries"
 
     id: Optional[int] = Field(default=None, primary_key=True)
+    name: AnniversaryType = Field(
+        sa_column=Column("name", Enum(AnniversaryType), nullable=False)
+    )
+    image: str

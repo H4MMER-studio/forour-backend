@@ -5,7 +5,9 @@ from app.models import Personality
 
 class ResultBase(SQLModel):
     flower: str
-    description: str
+    flower_description: str
+    title: str
+    mbti_description: str
     image: str
     personality: Personality
 
