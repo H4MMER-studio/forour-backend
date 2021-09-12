@@ -2,7 +2,7 @@ import enum
 
 from typing   import Optional
 
-from sqlmodel import SQLModel, Field, Enum, Column, Relationship
+from sqlmodel import SQLModel, Field, Enum, Column
 
 
 class Personality(str, enum.Enum):
@@ -35,5 +35,4 @@ class Result(SQLModel, table=True):
         sa_column=Column("personality", Enum(Personality), nullable=False)
     )
     to_whom: str
-    user_id: int = Field(foreign_key="users.id")
-    # anniversary_id: int = Field(foreign_key="anniversaries_id")
+    anniversary_id: int = Field(foreign_key="anniversaries_id")
