@@ -2,7 +2,7 @@ import enum
 
 from typing   import Optional
 
-from sqlmodel import SQLModel, Field, Enum, Column, Relationship
+from sqlmodel import SQLModel, Field, Enum, Column
 
 
 class Personality(str, enum.Enum):
@@ -29,11 +29,11 @@ class Result(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     flower: str
-    description: str
+    flower_descrption: str
+    title: str
+    mbti_description: str
     image: str
     personality: Personality = Field(
         sa_column=Column("personality", Enum(Personality), nullable=False)
     )
-    to_whom: str
-    user_id: int = Field(foreign_key="users.id")
-    # anniversary_id: int = Field(foreign_key="anniversaries_id")
+    anniversary_id: int = Field(foreign_key="anniversaries_id")

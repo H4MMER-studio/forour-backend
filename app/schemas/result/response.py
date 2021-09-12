@@ -6,8 +6,8 @@ class GetResultsResponse(SuccessResponseBase):
     class Config:
         schema_extra = {
             "example": {
-                "data": [
-
-                ]
+                "data": {
+                    
+                }
             }
         }
