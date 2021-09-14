@@ -29,11 +29,10 @@ class Result(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     flower: str
-    flower_descrption: str
+    flower_description: str
     title: str
     mbti_description: str
     image: str
     personality: Personality = Field(
         sa_column=Column("personality", Enum(Personality), nullable=False)
     )
-    anniversary_id: int = Field(foreign_key="anniversaries_id")

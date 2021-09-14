@@ -3,5 +3,5 @@ from app.schemas.result.crud     import (
                                     ResultUpdate
                                     )
 from app.schemas.result.response import (
-                                    GetResultsResponse
+                                    GetResultResponse
                                     )
