@@ -21,4 +21,5 @@ class CRUDResult(CRUDBase[Result, ResultCreate, ResultUpdate]):
         finally:
             db.close()
 
+
 result = CRUDResult(Result)
