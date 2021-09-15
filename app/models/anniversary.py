@@ -6,7 +6,7 @@ from sqlmodel import SQLModel, Field, Enum, Column
 
 
 class AnniversaryType(str, enum.Enum):
-    FRIENDSHIP     = "우정"
+    FRIENDSHIP      = "우정"
     LOVE            = "사랑"
     FIFTY           = "50일"
     ONE_HUNDREAD    = "100일"
@@ -16,7 +16,7 @@ class AnniversaryType(str, enum.Enum):
     FIRST_YAER      = "1주년"
     SECOND_YEAR     = "2주년"
     THIRD_YEAR      = "3주년"
-    NTH_YEAR        = "n주년"
+    NTH_YEAR        = "N주년"
     MARRIAGE        = "결혼"
     DELIVERY        = "출산"
     VALENTINE_DAY   = "발렌타인데이"
@@ -40,4 +40,5 @@ class Anniversary(SQLModel, table=True):
     name: AnniversaryType = Field(
         sa_column=Column("name", Enum(AnniversaryType), nullable=False)
     )
+    english_name: str
     image: str

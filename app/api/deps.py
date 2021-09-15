@@ -1,8 +1,6 @@
 from fastapi import APIRouter
 
-from app.api import question
-from app.api import answer
-from app.api import result
+from app.api import question, answer, result, anniversary
 
 
 api_router = APIRouter(prefix="/v1")
@@ -21,4 +19,9 @@ api_router.include_router(
     router = result.router,
     prefix = "/results",
     tags   = ["results"]
+)
+api_router.include_router(
+    router = anniversary.router,
+    prefix = "/anniversaries",
+    tags   = ["anniversaries"]
 )
