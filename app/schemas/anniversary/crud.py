@@ -6,7 +6,8 @@ from app.models import AnniversaryType
 
 class AnniversaryBase(SQLModel):
     name: AnniversaryType
-    image: Optional[str]
+    english_name: str
+    image: str
 
 
 class AnniversaryCreate(AnniversaryBase):
