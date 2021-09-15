@@ -16,4 +16,6 @@ from app.schemas.result      import (
 from app.schemas.anniversary import (
                                 AnniversaryCreate,
                                 AnniversaryUpdate,
+                                GetAnniversary,
+                                GetAnniversaries
                                 )                                         
