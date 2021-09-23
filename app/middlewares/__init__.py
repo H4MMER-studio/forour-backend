@@ -1,0 +1,1 @@
+from app.middlewares.cors import origins
