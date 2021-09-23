@@ -11,13 +11,20 @@ from app.middlewares         import origins
 
 server = FastAPI(title=project_settings.TITLE)
 
+server.include_router(router=api_router, prefix=project_settings.COMMON_API)
+
+origins = [
+    "http://localhost:3000"
+    "http://forour.com",
+    "https://forour.com"
+]
+
 server.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_methods=["*"],
     allow_headers=["*"]
 )
-server.include_router(router=api_router, prefix=project_settings.COMMON_API)
 
 @server.on_event("startup")
 def on_startup():
