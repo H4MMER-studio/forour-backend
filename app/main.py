@@ -15,8 +15,8 @@ server.include_router(router=api_router, prefix=project_settings.COMMON_API)
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "http://forour.com",
-    "https://forour.com"
+    "http://forour.space",
+    "https://forour.space"
 ]
 
 server.add_middleware(
