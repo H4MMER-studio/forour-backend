@@ -6,7 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api                 import api_router
 from app.core                import project_settings
 from app.database            import create_db_and_tables
-from app.middlewares         import origins
 
 
 server = FastAPI(title=project_settings.TITLE)
