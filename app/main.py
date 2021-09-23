@@ -13,8 +13,8 @@ server = FastAPI(title=project_settings.TITLE)
 server.include_router(router=api_router, prefix=project_settings.COMMON_API)
 
 origins = [
-    "http://localhost"
-    "http://localhost:3000"
+    "http://localhost",
+    "http://localhost:3000",
     "http://forour.com",
     "https://forour.com"
 ]
