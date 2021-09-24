@@ -4,7 +4,6 @@ from fastapi           import APIRouter, status, Depends, Body
 from fastapi.responses import JSONResponse
 
 from app.crud          import result
-from app.models        import Personality
 from app.schemas       import (
                         ResultCreate,
                         ResultUpdate,
@@ -17,9 +16,9 @@ router = APIRouter()
 
 
 @router.get("", response_model=GetResultResponse)
-def get_result(mbti: Personality, db=Depends(get_session)):
+def get_result(answers: str, db=Depends(get_session)):
     try:
-        data = result.get(db=db, mbti=mbti)
+        data = result.get(db=db, answers=answers)
         if data:
             return JSONResponse(
                 status_code = status.HTTP_200_OK,
