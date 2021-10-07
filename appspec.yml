@@ -5,7 +5,7 @@ files:
     destination: /home/ubuntu/build/forour-backend
 permissions:
   - object: /home/ubuntu/build/forour-backend
-    mode: 744
+    mode: 755
     owner: root
     type:
       - directory     
