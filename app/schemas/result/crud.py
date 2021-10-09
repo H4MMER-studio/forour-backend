@@ -10,6 +10,7 @@ class ResultBase(SQLModel):
     mbti_description: str
     image: str
     personality: Personality
+    kakao: str
 
 
 class ResultCreate(ResultBase):

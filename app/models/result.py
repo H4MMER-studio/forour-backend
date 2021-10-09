@@ -36,3 +36,4 @@ class Result(SQLModel, table=True):
     personality: Personality = Field(
         sa_column=Column("personality", Enum(Personality), nullable=False)
     )
+    kakao_image: str
