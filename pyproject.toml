@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "forour-backend"
+version = "1"
+description = "꽃 추천 서비스, ForOur"
+authors = ["H4MMER.studio"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.70.1"
+uvicorn = "^0.16.0"
+motor = "^2.5.1"
+python-dotenv = "^0.19.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pre-commit = "^2.16.0"
+flake8 = "^4.0.1"
+black = "^21.12b0"
+isort = "^5.10.1"
+mypy = "^0.920"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

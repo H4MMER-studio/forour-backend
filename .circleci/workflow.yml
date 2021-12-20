@@ -1,0 +1,33 @@
+version: 2.1
+
+orbs:
+  slack: circleci/slack@4.4.4
+  python: circleci/python@1.4.0
+
+commands:
+  notify_slack_pass:
+    steps:
+      - slack/notify:
+          event: pass
+          template: basic_success_1
+
+  notify_slack_error:
+    steps:
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: 'cimg/python:3.9'
+    steps:
+      - checkout
+      - python/install-packages:
+        pkg-manager: poetry
+      - run:
+          name: Run Tests
+          command: poetry run pytest --version
+
+      - notify_slack_error
+      - notify_slack_pass
