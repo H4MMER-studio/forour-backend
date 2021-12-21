@@ -1,6 +1,6 @@
 from src.schema.response import ErrorResponseModel, GetResponseModel
 
-get_multi_response_example = {
+question_get_multi_response = {
     "200": {
         "model": GetResponseModel,
         "description": "성공",

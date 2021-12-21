@@ -1,73 +1,66 @@
 from typing import List, Optional
-from fastapi import APIRouter, Request, status, Query
+
+from fastapi import APIRouter, Query, Request, status
 from fastapi.responses import JSONResponse
 
 from src.crud import question_crud
 from src.schema import (
     CreateQuestion,
     UpdateQuestion,
+    create_response_example,
+    delete_response_example,
     get_by_id_response_example,
     get_multi_response_example,
-    create_response_example,
     update_response_example,
-    delete_response_example,
 )
 
 router = APIRouter()
 
 
-@router.get('/{question_id}', responses=get_by_id_response_example)
+@router.get("/{question_id}", responses=get_by_id_response_example)
 async def get_question_by_id(request: Request, question_id: str):
     """
     ObjectId 값을 활용한 MBTI 개별 질문 조회
     """
     try:
-        result = await question_crud.get_by_id(
-            id=question_id, request=request
-        )
-        
+        result = await question_crud.get_by_id(id=question_id, request=request)
+
         if not result:
             return JSONResponse(
-                status_code=status.HTTP_404_NOT_FOUND,
-                contet={'data': []}
+                status_code=status.HTTP_404_NOT_FOUND, contet={"data": []}
             )
-        
+
         return JSONResponse(
-            status_code=status.HTTP_200_OK,
-            content={'data': result}
+            status_code=status.HTTP_200_OK, content={"data": result}
         )
-        
+
     except TypeError:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
-            content={'detail': f'ObjectId {question_id} Invalid'}
+            content={"detail": f"ObjectId {question_id} Invalid"},
         )
-        
+
     except Exception as error:
         return JSONResponse(
-            status_code=status.HTTP_505_HTTP_VERSION_NOT_SUPPORTED,
-            content={'detail': error}
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"detail": error},
         )
-        
 
-@router.get('s', responses=get_multi_response_example)
+
+@router.get("s", responses=get_multi_response_example)
 async def get_questions(
     request: Request,
     skip: Optional[int] = Query(
-        default=0,
-        description='페이지네이션 시작 값',
-        example=0
+        default=0, description="페이지네이션 시작 값", example=0
     ),
     limit: Optional[int] = Query(
-        default=0,
-        description='페이지네이션 끝 값',
-        example=100
+        default=0, description="페이지네이션 끝 값", example=100
     ),
     sort: Optional[List[str]] = Query(
-        default=['question_order'],
-        description='정렬을 위한 쿼리 파라미터',
-        example='question-order+asc'
-    )
+        default=["question_order"],
+        description="정렬을 위한 쿼리 파라미터",
+        example="question-order+asc",
+    ),
 ):
     """
     MBTI 질문 전체 또는 페이지네이션 조회
@@ -76,33 +69,30 @@ async def get_questions(
         result = await question_crud.get_multi(
             skip=skip, limit=limit, sort=sort, request=request
         )
-        
+
         if not len(result):
             return JSONResponse(
-                status_code=status.HTTP_404_NOT_FOUND,
-                content={'data': []}
+                status_code=status.HTTP_404_NOT_FOUND, content={"data": []}
             )
-        
+
         return JSONResponse(
-            status_code=status.HTTP_200_OK,
-            contet={'data': result}
+            status_code=status.HTTP_200_OK, contet={"data": result}
         )
-        
+
     except ValueError:
         return JSONResponse(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            content={'detail': f'Query Parameter {sort} Invalid'}
+            content={"detail": f"Query Parameter {sort} Invalid"},
         )
-        
+
     except Exception as error:
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={'detail': error}
+            content={"detail": error},
         )
-    
-        
-        
-@router.post('', responses=create_response_example)
+
+
+@router.post("", responses=create_response_example)
 async def create_question(request: Request, insert_data: CreateQuestion):
     """
     MBTI 질문 생성
@@ -111,29 +101,27 @@ async def create_question(request: Request, insert_data: CreateQuestion):
         result = await question_crud.create(
             insert_data=insert_data, request=request
         )
-        
+
         if not result:
             return JSONResponse(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                content={'detail': 'Databae Error'}
+                content={"detail": "Databae Error"},
             )
-        
+
         return JSONResponse(
-            status_code=status.HTTP_201_OK,
-            content={'detail': 'Success'}
+            status_code=status.HTTP_201_OK, content={"detail": "Success"}
         )
-    
+
     except Exception as error:
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={'detail': error}
+            content={"detail": error},
         )
-        
-@router.put('/{question_id}', responses=update_response_example)
+
+
+@router.put("/{question_id}", responses=update_response_example)
 async def update_question(
-    request: Request,
-    question_id: str,
-    update_data: UpdateQuestion
+    request: Request, question_id: str, update_data: UpdateQuestion
 ):
     """
     ObjectId 값을 활용한 MBTI 개별 질문 수정
@@ -142,57 +130,54 @@ async def update_question(
         result = await question_crud.update(
             id=question_id, update_data=update_data, request=request
         )
-        
+
         if not result:
             return JSONResponse(
-                status_code=status.HTTP_404_NOT_FOUND,
-                content={'detail': 'Not Found'}
+                status_code=status.HTTP_404_NOT_FOUND, content={"data": []}
             )
-        
+
         return JSONResponse(
-            status_code=status.HTTP_200_OK,
-            content={'detail': 'Success'}
+            status_code=status.HTTP_200_OK, content={"detail": "Success"}
         )
-    
+
     except TypeError:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
-            cotent={'detail': f'ObjectId {question_id} Invalid'}
+            cotent={"detail": f"ObjectId {question_id} Invalid"},
         )
-    
+
     except Exception as error:
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={'detail': error}
+            content={"detail": error},
         )
-        
-@router.delete('/{question_id}', responses=delete_response_example)
+
+
+@router.delete("/{question_id}", responses=delete_response_example)
 async def delete_question(request: Request, question_id: str):
     """
     ObjectId 값을 활용한 MBTI 개별 질문 삭제
     """
     try:
         result = await question_crud.delete(id=question_id, request=request)
-        
+
         if not result:
             return JSONResponse(
-                status_code=status.HTTP_404_NOT_FOUND,
-                content={'detail': 'Not Found'}
+                status_code=status.HTTP_404_NOT_FOUND, content={"data": []}
             )
-            
+
         return JSONResponse(
-            status_code=status.HTTP_200_OK,
-            content={'detail': 'Success'}
+            status_code=status.HTTP_200_OK, content={"detail": "Success"}
         )
-    
+
     except TypeError:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
-            content={'detail': f'ObjectId {question_id} Invalid'}
+            content={"detail": f"ObjectId {question_id} Invalid"},
         )
-        
+
     except Exception as error:
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={'detail': error}
+            content={"detail": error},
         )

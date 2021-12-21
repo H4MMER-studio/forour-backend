@@ -7,6 +7,6 @@ exclude = (
     README.md
     poetry.lock,
     pyproject.toml,
-    __init__.py
+    __init__.py,
 )
 max-line-length = 79
