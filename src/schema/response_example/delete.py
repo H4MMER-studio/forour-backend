@@ -1,6 +1,10 @@
-from src.schema.response import AlterResponseModel, ErrorResponseModel
+from src.schema.response import (
+    AlterResponseModel,
+    ErrorResponseModel,
+    GetResponseModel,
+)
 
-update_response_example = {
+delete_response = {
     "200": {
         "model": AlterResponseModel,
         "description": "성공",
@@ -11,17 +15,13 @@ update_response_example = {
         "description": "유효하지 않은 형태의 ObjectId 요청",
         "content": {
             "application/json": {
-                "example": {"detail": "ObjectId 1234 is Invalid"}
+                "example": {"detail": "ObjectId 1234 Invalid"}
             }
         },
     },
     "404": {
-        "model": ErrorResponseModel,
+        "model": GetResponseModel,
         "description": "존재하지 않는 엔티티",
-        "content": {
-            "application/json": {
-                "example": {"detail": "ObjectId 1234 Not Found"}
-            }
-        },
+        "content": {"application/json": {"example": {"data": []}}},
     },
 }

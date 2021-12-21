@@ -24,7 +24,12 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-max-length = 79
+line-length = 79
+exclude = '''
+/(
+    ^.*(response_example).*$
+)/
+'''
 
 [tool.isort]
 profile = "black"

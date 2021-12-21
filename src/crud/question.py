@@ -6,4 +6,4 @@ class CRUDQuestion(CRUDBase[CreateQuestion, UpdateQuestion]):
     pass
 
 
-question_crud = CRUDQuestion(collection='questions')
+question_crud = CRUDQuestion(collection="questions")
