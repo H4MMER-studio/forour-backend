@@ -18,8 +18,13 @@ pre-commit = "^2.16.0"
 flake8 = "^4.0.1"
 black = "^21.12b0"
 isort = "^5.10.1"
-mypy = "^0.920"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+max-length = 79
+
+[tool.isort]
+profile = "black"
