@@ -8,7 +8,7 @@ permissions:
     mode: 755
     owner: root
     type:
-      - directory     
+      - directory
 hooks:
   BeforeInstall:
     - location: scripts/stop_server

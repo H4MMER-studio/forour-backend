@@ -64,9 +64,11 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
 
         return documents
 
-    async def create(self, request: Request, input_data: CreateSchema) -> bool:
+    async def create(
+        self, request: Request, insert_data: CreateSchema
+    ) -> bool:
         inserted_document = await request.app.db[self.collection].insert_one(
-            jsonable_encoder(input_data)
+            jsonable_encoder(insert_data)
         )
 
         result = inserted_document.acknowledged

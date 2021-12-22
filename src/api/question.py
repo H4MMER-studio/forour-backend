@@ -7,20 +7,20 @@ from src.crud import question_crud
 from src.schema import (
     CreateQuestion,
     UpdateQuestion,
-    create_response_example,
-    delete_response_example,
-    get_by_id_response_example,
-    get_multi_response_example,
-    update_response_example,
+    create_response,
+    delete_response,
+    question_get_by_id_response,
+    question_get_multi_response,
+    update_response,
 )
 
 router = APIRouter()
 
 
-@router.get("/{question_id}", responses=get_by_id_response_example)
+@router.get("/{question_id}", responses=question_get_by_id_response)
 async def get_question_by_id(request: Request, question_id: str):
     """
-    ObjectId 값을 활용한 MBTI 개별 질문 조회
+    ObjectId 값을 활용한 MBTI 질문 개별 조회
     """
     try:
         result = await question_crud.get_by_id(id=question_id, request=request)
@@ -47,17 +47,17 @@ async def get_question_by_id(request: Request, question_id: str):
         )
 
 
-@router.get("s", responses=get_multi_response_example)
+@router.get("s", responses=question_get_multi_response)
 async def get_questions(
     request: Request,
     skip: Optional[int] = Query(
         default=0, description="페이지네이션 시작 값", example=0
     ),
     limit: Optional[int] = Query(
-        default=0, description="페이지네이션 끝 값", example=100
+        default=0, description="페이지네이션 종료 값", example=100
     ),
     sort: Optional[List[str]] = Query(
-        default=["question_order"],
+        default=["question-order desc"],
         description="정렬을 위한 쿼리 파라미터",
         example="question-order+asc",
     ),
@@ -92,7 +92,7 @@ async def get_questions(
         )
 
 
-@router.post("", responses=create_response_example)
+@router.post("", responses=create_response)
 async def create_question(request: Request, insert_data: CreateQuestion):
     """
     MBTI 질문 생성
@@ -119,12 +119,12 @@ async def create_question(request: Request, insert_data: CreateQuestion):
         )
 
 
-@router.put("/{question_id}", responses=update_response_example)
+@router.put("/{question_id}", responses=update_response)
 async def update_question(
     request: Request, question_id: str, update_data: UpdateQuestion
 ):
     """
-    ObjectId 값을 활용한 MBTI 개별 질문 수정
+    ObjectId 값을 활용한 MBTI 질문 개별 수정
     """
     try:
         result = await question_crud.update(
@@ -153,10 +153,10 @@ async def update_question(
         )
 
 
-@router.delete("/{question_id}", responses=delete_response_example)
+@router.delete("/{question_id}", responses=delete_response)
 async def delete_question(request: Request, question_id: str):
     """
-    ObjectId 값을 활용한 MBTI 개별 질문 삭제
+    ObjectId 값을 활용한 MBTI 질문 개별 삭제
     """
     try:
         result = await question_crud.delete(id=question_id, request=request)
