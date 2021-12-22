@@ -7,3 +7,6 @@ api_router = APIRouter()
 api_router.include_router(
     router=question.router, prefix="/question", tags=["Question"]
 )
+api_router.include_router(
+    router=anniversary.router, prefix="/anniversary", tags=["anniversary"]
+)

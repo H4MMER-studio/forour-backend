@@ -14,11 +14,11 @@
 * [:recycle: Refactor](#recycle-refactor)
     * [:pushpin: API Communication](#pushpin-api-communication)
     * [:pushpin: API Document](#pushpin-api-document)
-    * [:pushpin: CI/CD](#pushpin-cicd)     
+    * [:pushpin: CI/CD](#pushpin-cicd)
     * [:pushpin: Database](#pushpin-database)
-    * [:pushpin: Formatting and Linting](#pushpin-formatting-and-linting)        
+    * [:pushpin: Formatting and Linting](#pushpin-formatting-and-linting)
     * [:pushpin: Package Manager](#pushpin-package-manager)
-    * [:pushpin: Unittest](#pushpin-unittest)    
+    * [:pushpin: Unittest](#pushpin-unittest)
 
 
 
