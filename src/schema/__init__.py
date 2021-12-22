@@ -15,3 +15,9 @@ from src.schema.response_example import (
     delete_response,
     update_response,
 )
+from src.schema.result import (
+    CreateResult,
+    UpdateResult,
+    result_get_by_answers_response,
+    result_get_multi_response,
+)

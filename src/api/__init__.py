@@ -10,3 +10,6 @@ api_router.include_router(
 api_router.include_router(
     router=anniversary.router, prefix="/anniversary", tags=["anniversary"]
 )
+api_router.include_router(
+    router=result.router, prefix="/result", tags=["result"]
+)

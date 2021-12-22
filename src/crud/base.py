@@ -14,7 +14,7 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
     def __init__(self, collection: str) -> None:
         self.collection = collection
 
-    async def get_by_id(self, request: Request, id: str) -> Optional[dict]:
+    async def get_one(self, request: Request, id: str) -> Optional[dict]:
         try:
             document = await request.app.db[self.collection].find_one(
                 {"_id": ObjectId(id)}

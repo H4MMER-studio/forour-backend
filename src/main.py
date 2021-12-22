@@ -5,7 +5,11 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from src.api import api_router
 from src.core import get_settings
 
-app = FastAPI(title=get_settings().PROJECT_TITLE)
+app = FastAPI(
+    title=get_settings().PROJECT_TITLE,
+    description=get_settings().PROJECT_DESCRIPTION,
+    version=get_settings().PROJECT_VERSION,
+)
 
 
 @app.on_event("startup")
