@@ -23,7 +23,7 @@ async def get_question_by_id(request: Request, question_id: str):
     ObjectId 값을 활용한 MBTI 질문 개별 조회
     """
     try:
-        result = await question_crud.get_by_id(id=question_id, request=request)
+        result = await question_crud.get_one(id=question_id, request=request)
 
         if not result:
             return JSONResponse(
@@ -95,7 +95,7 @@ async def get_questions(
 @router.post("", responses=create_response)
 async def create_question(request: Request, insert_data: CreateQuestion):
     """
-    MBTI 질문 생성
+    MBTI 질문 개별 생성
     """
     try:
         result = await question_crud.create(

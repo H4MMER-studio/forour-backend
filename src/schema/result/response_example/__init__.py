@@ -1,0 +1,2 @@
+from src.schema.result.response_example.get_by_answers import result_get_by_answers_response
+from src.schema.result.response_example.get_multi import result_get_multi_response

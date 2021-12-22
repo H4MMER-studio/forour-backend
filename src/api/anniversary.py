@@ -23,7 +23,7 @@ async def get_anniversary_by_id(anniversary_id: str, request: Request):
     ObjectId 값을 활용한 기념일 개별 조회
     """
     try:
-        result = await anniversary_crud.get_by_id(
+        result = await anniversary_crud.get_one(
             id=anniversary_id, request=request
         )
 
@@ -93,7 +93,7 @@ async def get_anniversaries(
 @router.post("", responses=create_response)
 async def create_anniversary(request: Request, insert_data: CreateAnniversary):
     """
-    기념일 생성
+    기념일 개별 생성
     """
     try:
         result = await anniversary_crud.create(
