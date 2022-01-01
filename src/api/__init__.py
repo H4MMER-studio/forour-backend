@@ -8,8 +8,8 @@ api_router.include_router(
     router=question.router, prefix="/question", tags=["Question"]
 )
 api_router.include_router(
-    router=anniversary.router, prefix="/anniversary", tags=["anniversary"]
+    router=anniversary.router, prefix="/anniversary", tags=["Anniversary"]
 )
 api_router.include_router(
-    router=result.router, prefix="/result", tags=["result"]
+    router=result.router, prefix="/result", tags=["Result"]
 )

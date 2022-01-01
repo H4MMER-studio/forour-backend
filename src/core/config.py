@@ -23,11 +23,11 @@ class Settings(BaseSettings):
 
 
 class DevelopSettings(Settings):
-    DB_URL: str = Field("DEVELOP_DB_URL")
+    DB_URL: str = Field(env="DEVELOP_DB_URL")
 
 
 class ProductSettings(Settings):
-    DB_URL: str = Field("PRODUCT_DB_URL")
+    DB_URL: str = Field(env="PRODUCT_DB_URL")
 
 
 @lru_cache
