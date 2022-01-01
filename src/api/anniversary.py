@@ -65,7 +65,7 @@ async def get_anniversaries(
     """
     try:
         result = await anniversary_crud.get_multi(
-            request=request, skip=skip, limit=limit, sort=None
+            request=request, skip=skip, limit=limit, sort=sort
         )
 
         if not len(result):

@@ -58,7 +58,7 @@ async def get_results(
     skip: int = Query(default=0, description="페이지네이션 시작 값", example=0),
     limit: int = Query(default=0, description="페이지네이션 종료 값", example=100),
     sort: Optional[List[str]] = Query(
-        default=["mbti desc"],
+        default=["mbti-count desc"],
         description="정렬을 위한 쿼리 파라미터",
         example="mbti+desc",
     ),
@@ -129,13 +129,17 @@ async def update_result(
     """
     try:
         result = await result_crud.update(
-            request=request, id=result_id, updated_data=update_data
+            request=request, id=result_id, update_data=update_data
         )
 
         if not result:
             return JSONResponse(
                 status_code=status.HTTP_404_NOT_FOUND, content={"data": []}
             )
+
+        return JSONResponse(
+            status_code=status.HTTP_200_OK, content={"detail": "Success"}
+        )
 
     except TypeError:
         return JSONResponse(
@@ -162,6 +166,10 @@ async def delete_result(request: Request, result_id: str):
             return JSONResponse(
                 status_code=status.HTTP_404_NOT_FOUND, content={"data": []}
             )
+
+        return JSONResponse(
+            status_code=status.HTTP_200_OK, content={"detail": "Success"}
+        )
 
     except TypeError:
         return JSONResponse(

@@ -57,7 +57,7 @@ async def get_questions(
         default=0, description="페이지네이션 종료 값", example=100
     ),
     sort: Optional[List[str]] = Query(
-        default=["question-order desc"],
+        default=["question-order asc"],
         description="정렬을 위한 쿼리 파라미터",
         example="question-order+asc",
     ),
@@ -76,7 +76,7 @@ async def get_questions(
             )
 
         return JSONResponse(
-            status_code=status.HTTP_200_OK, contet={"data": result}
+            status_code=status.HTTP_200_OK, content={"data": result}
         )
 
     except ValueError:
@@ -109,7 +109,7 @@ async def create_question(request: Request, insert_data: CreateQuestion):
             )
 
         return JSONResponse(
-            status_code=status.HTTP_201_OK, content={"detail": "Success"}
+            status_code=status.HTTP_201_CREATED, content={"detail": "Success"}
         )
 
     except Exception as error:

@@ -33,7 +33,7 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
         limit: str,
         sort: Optional[List[str]],
     ) -> Optional[List[dict]]:
-        query = request.app.db[self.collection]
+        query = request.app.db[self.collection].find()
 
         if sort:
             sort_field = []
@@ -42,7 +42,7 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
                 sort = list(type)
 
             for query_string in sort:
-                field, option = query_string.split("")
+                field, option = query_string.split(" ")
 
                 field = field.replace("-", "_")
 
