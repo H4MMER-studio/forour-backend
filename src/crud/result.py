@@ -29,6 +29,18 @@ class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
         sort: Optional[List[str]],
     ) -> Optional[List[dict]]:
 
+        aggregate = [
+            {"$unwind": "$mbti_relation"},
+            {
+                "$lookup": {
+                    "from": "results",
+                    "localField": "mbti_relation.mbti",
+                    "foreignField": "mbti",
+                    "as": "mbti_relation.information",
+                }
+            },
+        ]
+
         if sort:
             sort_field = []
 
@@ -51,14 +63,13 @@ class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
 
         documents = (
             await request.app.db[self.collection]
-            .find()
-            .skip(skip)
-            .limit(limit)
+            .aggregate(aggregate)
             .to_list(length=None)
         )
 
         for document in documents:
             document["_id"] = str(document["_id"])
+            document["relation"]["_id"] = str(document["relation"]["_id"])
 
         return documents
 
