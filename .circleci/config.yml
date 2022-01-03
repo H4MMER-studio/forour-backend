@@ -10,10 +10,18 @@ commands:
     steps:
       - run:
           name: Put staging level environment of application
-          command: aws ssm put-parameter --name "LEVEL" --value ${LEVEL}
+          command: |
+            aws ssm put-parameter \
+              --name "LEVEL" \
+              --type "String" \
+              --value ${LEVEL}
       - run:
           name: Put Database URL of application
-          command: aws ssm put-parameter --name "PRODUCT_DB_URL" --value ${PRODUCT_DB_URL}
+          command: |
+            aws ssm put-parameter \
+              --name "PRODUCT_DB_URL" \
+              --type "String" \
+              --value ${PRODUCT_DB_URL}
   notify_slack_pass:
     steps:
       - slack/notify:
@@ -44,11 +52,12 @@ jobs:
       - aws_put_parameters
       - run:
           name: Deploy with AWS CodeDeploy
-          command: aws deploy create-deployment \
-            --application-name CODE_DEPLOY_APPLICATION_NAME' \
-            --deployment-group-name CODE_DEPLOY_GROUP_NAME \
-            --deployment-config-name CODE_DEPLOY_CONFIG_NAME \
-            --github-location repository=GITHUB_REPOSITORY,commitId=$CIRCLE_SHA1
+          command: |
+            aws deploy create-deployment \
+              --application-name CODE_DEPLOY_APPLICATION_NAME' \
+              --deployment-group-name CODE_DEPLOY_GROUP_NAME \
+              --deployment-config-name CODE_DEPLOY_CONFIG_NAME \
+              --github-location repository=GITHUB_REPOSITORY,commitId=$CIRCLE_SHA1
       - notify_slack_error
       - notify_slack_pass
 
@@ -57,7 +66,7 @@ workflows:
     jobs:
       - ci-cd:
           context:
-            - slack-secrets
+            - backend-slack-secrets
             - forour-backend-environments
             - forour-backend-aws-secrets
           filters:
