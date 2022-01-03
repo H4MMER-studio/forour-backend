@@ -56,10 +56,10 @@ jobs:
           name: Deploy with AWS CodeDeploy
           command: |
             aws deploy create-deployment \
-              --application-name CODE_DEPLOY_APPLICATION_NAME \
-              --deployment-group-name CODE_DEPLOY_GROUP_NAME \
-              --deployment-config-name CODE_DEPLOY_CONFIG_NAME \
-              --github-location repository=GITHUB_REPOSITORY,commitId=$CIRCLE_SHA1
+              --application-name ${CODE_DEPLOY_APPLICATION_NAME} \
+              --deployment-group-name ${CODE_DEPLOY_GROUP_NAME} \
+              --deployment-config-name ${CODE_DEPLOY_CONFIG_NAME} \
+              --github-location repository=${GITHUB_REPOSITORY},commitId=${CIRCLE_SHA1}
       - notify_slack_error
       - notify_slack_pass
 
