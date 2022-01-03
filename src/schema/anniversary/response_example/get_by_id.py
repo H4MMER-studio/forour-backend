@@ -4,7 +4,17 @@ anniversary_get_by_id_response = {
     "200": {
         "model": GetResponseModel,
         "description": "성공",
-        "content": {"application/json": {"example": {"data": {}}}},
+        "content": {"application/json": {"example": {"data":
+            {
+                "_id": "61c9d790bae9d99ea4c1782c",
+                    "name": {
+                        "korean": "우정",
+                        "english": "Solid\nFriendship"
+                    },
+                    "image": "https://forour.s3.ap-northeast-2.amazonaws.com/Friendship.svg"
+
+            }
+        }}},
     },
     "400": {
         "model": ErrorResponseModel,
