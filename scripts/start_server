@@ -1,5 +1,5 @@
 # !/bin/bash
 
 cd /home/ubuntu/build/forour-backend
-docker-compose build
-docker-compose up -d
+aws ssm get-parameters --name "LEVEL" "PRODUCT_DB_URL" | jq -c '.Parameters | [] | .Value' > .env
+python -m src.main
