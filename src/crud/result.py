@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from fastapi import Request
-from pymongo import ASCENDING, DESCENDING, ReturnDocument
+from pymongo import ASCENDING, DESCENDING
 
 from src.crud.base import CRUDBase
 from src.schema import CreateResult, UpdateResult
@@ -11,15 +11,79 @@ from src.util import answers_parser
 class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
     async def get_one(self, request: Request, answers: str) -> Optional[dict]:
         answer = answers_parser(answers=answers)
-        document = await request.app.db[self.collection].find_one_and_update(
-            {"mbti": answer},
-            {"$inc": {"mbti_count": 1}},
-            return_document=ReturnDocument.AFTER,
+
+        await request.app.db[self.collection].update_one(
+            {"mbti": answer}, {"$inc": {"mbti_count": 1}}
         )
 
-        document["_id"] = str(document["_id"])
+        document = (
+            await request.app.db[self.collection]
+            .aggregate(
+                [
+                    {"$match": {"mbti": answer}},
+                    {"$unwind": "$mbti_relation"},
+                    {
+                        "$lookup": {
+                            "from": "results",
+                            "localField": "mbti_relation.mbti",
+                            "foreignField": "mbti",
+                            "as": "mbti_relation.information",
+                        }
+                    },
+                    {
+                        "$addFields": {
+                            "mbti_relation._id": {
+                                "$first": "$mbti_relation.information._id"
+                            },
+                            "mbti_relation.mbti_description": {
+                                "$first": "$mbti_relation.information.mbti_description"  # noqa E501
+                            },
+                            "mbti_relation.mbti_title": {
+                                "$first": "$mbti_relation.information.mbti_title"  # noqa E501
+                            },
+                            "mbti_relation.mbti_count": {
+                                "$first": "$mbti_relation.information.mbti_count"  # noqa E501
+                            },
+                            "mbti_relation.images": {
+                                "$first": "$mbti_relation.information.images"
+                            },
+                            "mbti_relation.flower_name": {
+                                "$first": "$mbti_relation.information.flower_name"  # noqa #501
+                            },
+                            "mbti_relation.flower_description": {
+                                "$first": "$mbti_relation.information.flower_description"  # noqa E501
+                            },
+                        }
+                    },
+                    {
+                        "$group": {
+                            "_id": "$_id",
+                            "images": {"$first": "$images"},
+                            "mbti": {"$first": "$mbti"},
+                            "mbti_title": {"$first": "$mbti_title"},
+                            "mbti_count": {"$first": "$mbti_count"},
+                            "mbti_description": {
+                                "$first": "$mbti_description"
+                            },
+                            "flower_name": {"$first": "$flower_name"},
+                            "flower_description": {
+                                "$first": "$flower_description"
+                            },
+                            "mbti_relation": {"$push": "$mbti_relation"},
+                        }
+                    },
+                    {"$unset": "mbti_relation.information"},
+                ]
+            )
+            .to_list(length=1)
+        )
 
-        return document
+        for mbti_relation in document[0]["mbti_relation"]:
+            mbti_relation["_id"] = str(mbti_relation["_id"])
+
+        document[0]["_id"] = str(document[0]["_id"])
+
+        return document[0]
 
     async def get_multi(
         self,
@@ -45,7 +109,7 @@ class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
                         "$first": "$mbti_relation.information._id"
                     },
                     "mbti_relation.mbti_description": {
-                        "$first": "$mbti_relation.information.mbti_description"
+                        "$first": "$mbti_relation.information.mbti_description"  # noqa E501
                     },
                     "mbti_relation.mbti_title": {
                         "$first": "$mbti_relation.information.mbti_title"

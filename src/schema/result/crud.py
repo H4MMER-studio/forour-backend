@@ -11,11 +11,10 @@ class ResultBase(BaseModel):
     mbti_title: str
     mbti_description: str
     mbti_relation: List[Dict[str, str]]
+    mbti_count: int = 0
 
 
 class CreateResult(ResultBase):
-    mbti_count: int = 0
-
     class Config:
         schema_extra = {
             "example": {
@@ -41,6 +40,8 @@ class UpdateResult(ResultBase):
     mbti: Optional[str]
     mbti_title: Optional[str]
     mbti_description: Optional[str]
+    mbti_relation: Optional[List[Dict[str, str]]]
+    mbti_count: Optional[int]
 
     class Config:
         schema_extra = {

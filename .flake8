@@ -8,5 +8,6 @@ exclude = (
     poetry.lock,
     pyproject.toml,
     __init__.py,
+    */response_example/*
 )
 max-line-length = 79
