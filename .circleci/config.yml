@@ -14,14 +14,16 @@ commands:
             aws ssm put-parameter \
               --name "LEVEL" \
               --type "String" \
-              --value ${LEVEL}
+              --value ${LEVEL} \
+              --no-overwrite
       - run:
           name: Put Database URL of application
           command: |
             aws ssm put-parameter \
               --name "PRODUCT_DB_URL" \
               --type "String" \
-              --value ${PRODUCT_DB_URL}
+              --value ${PRODUCT_DB_URL} \
+              --no-overwrite
   notify_slack_pass:
     steps:
       - slack/notify:
