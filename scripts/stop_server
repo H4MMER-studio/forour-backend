@@ -2,3 +2,4 @@
 
 cd /home/ubuntu/build
 rm -rf ./forour-backend
+pkill -f gunicorn

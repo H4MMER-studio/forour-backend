@@ -2,9 +2,9 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/build/forour-backend
+    destination: /home/ubuntu/build/
 permissions:
-  - object: /home/ubuntu/build/forour-backend
+  - object: /home/ubuntu/build/
     mode: 755
     owner: root
     type:
