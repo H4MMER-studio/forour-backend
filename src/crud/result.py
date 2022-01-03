@@ -25,11 +25,11 @@ class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
         self,
         request: Request,
         skip: int,
-        limit: str,
+        limit: int,
         sort: Optional[List[str]],
     ) -> Optional[List[dict]]:
 
-        aggregate = [
+        query = [
             {"$unwind": "$mbti_relation"},
             {
                 "$lookup": {
@@ -39,10 +39,49 @@ class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
                     "as": "mbti_relation.information",
                 }
             },
+            {
+                "$addFields": {
+                    "mbti_relation._id": {
+                        "$first": "$mbti_relation.information._id"
+                    },
+                    "mbti_relation.mbti_description": {
+                        "$first": "$mbti_relation.information.mbti_description"
+                    },
+                    "mbti_relation.mbti_title": {
+                        "$first": "$mbti_relation.information.mbti_title"
+                    },
+                    "mbti_relation.mbti_count": {
+                        "$first": "$mbti_relation.information.mbti_count"
+                    },
+                    "mbti_relation.images": {
+                        "$first": "$mbti_relation.information.images"
+                    },
+                    "mbti_relation.flower_name": {
+                        "$first": "$mbti_relation.information.flower_name"
+                    },
+                    "mbti_relation.flower_description": {
+                        "$first": "$mbti_relation.information.flower_description"  # noqa E501
+                    },
+                }
+            },
+            {
+                "$group": {
+                    "_id": "$_id",
+                    "images": {"$first": "$images"},
+                    "mbti": {"$first": "$mbti"},
+                    "mbti_title": {"$first": "$mbti_title"},
+                    "mbti_count": {"$first": "$mbti_count"},
+                    "mbti_description": {"$first": "$mbti_description"},
+                    "flower_name": {"$first": "$flower_name"},
+                    "flower_description": {"$first": "$flower_description"},
+                    "mbti_relation": {"$push": "$mbti_relation"},
+                }
+            },
+            {"$unset": "mbti_relation.information"},
         ]
 
         if sort:
-            sort_field = []
+            sort_field = {}
 
             if not type(sort) is list:
                 sort = list(type)
@@ -59,17 +98,27 @@ class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
                 else:
                     raise ValueError
 
-                sort_field.append((field, option))
+                sort_field[field] = option
+
+            query.append({"$sort": sort_field})
+
+        if skip:
+            query.append({"$skip": skip})
+
+        if limit:
+            query.append({"$limit": limit})
 
         documents = (
             await request.app.db[self.collection]
-            .aggregate(aggregate)
+            .aggregate(query)
             .to_list(length=None)
         )
 
         for document in documents:
             document["_id"] = str(document["_id"])
-            document["relation"]["_id"] = str(document["relation"]["_id"])
+
+            for mbti_relation in document["mbti_relation"]:
+                mbti_relation["_id"] = str(document["_id"])
 
         return documents
 

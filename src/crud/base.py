@@ -30,7 +30,7 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
         self,
         request: Request,
         skip: int,
-        limit: str,
+        limit: int,
         sort: Optional[List[str]],
     ) -> Optional[List[dict]]:
         query = request.app.db[self.collection].find()
