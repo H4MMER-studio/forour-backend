@@ -1,7 +1,4 @@
 # !/bin/bash
 
-cd /home/ubuntu/build/forour-backend
-docker-compose down
-
 cd /home/ubuntu/build
 rm -rf ./forour-backend
