@@ -15,7 +15,7 @@ commands:
               --name "LEVEL" \
               --type "String" \
               --value ${LEVEL} \
-              --no-overwrite
+              --overwrite
       - run:
           name: Put Database URL of application
           command: |
@@ -23,7 +23,7 @@ commands:
               --name "PRODUCT_DB_URL" \
               --type "String" \
               --value ${PRODUCT_DB_URL} \
-              --no-overwrite
+              --overwrite
   notify_slack_pass:
     steps:
       - slack/notify:
