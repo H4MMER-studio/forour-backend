@@ -25,14 +25,14 @@ jobs:
     steps:
       - checkout
       - python/install-packages:
-        pkg-manager: poetry
+          pkg-manager: poetry
       - run:
           name: Run Tests
           command: poetry run pytest
       - aws-cli/setup:
-        aws-access-key-id: $AWS_ACCESS_KEY_ID
-        aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
-        aws-region: $AWS_REGION
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+          aws-region: $AWS_REGION
       - run: aws ssm put-parameter --name "LEVEL" --value $LEVEL
       - run: aws ssm put-parameter --name "PRODUCT_DB_URL" --value $PRODUCT_DB_URL
       - run: |
