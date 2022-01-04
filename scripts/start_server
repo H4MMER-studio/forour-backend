@@ -2,4 +2,6 @@
 
 cd /home/ubuntu/build/forour-backend
 aws ssm get-parameters --name "LEVEL" "PRODUCT_DB_URL" | jq -c '.Parameters | [] | .Value' > .env
+pip install poetry
+poetry install
 gunicorn -k uvicorn.workers.UvicornWorker --access-logfile ./gunicorn-access.log src.main:app --bind 0.0.0.0:80 --workers 2 --daemon
