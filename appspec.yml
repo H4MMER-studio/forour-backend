@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/build/
+    destination: /home/ubuntu/build/forour-backend
 permissions:
   - object: /home/ubuntu/build/
     mode: 755
@@ -18,8 +18,7 @@ hooks:
     - location: scripts/deploy_source
       timeout: 300
       runas: root
-
   ApplicationStart:
     - location: scripts/start_server
-      timeout: 300
+      timeout: 3600
       runas: root
