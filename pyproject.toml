@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "forour-backend"
-version = "1"
+version = "2"
 description = "꽃 추천 서비스, ForOur"
 authors = ["H4MMER.studio"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 fastapi = "^0.70.1"
 uvicorn = "^0.16.0"
 motor = "^2.5.1"
