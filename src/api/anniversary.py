@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from fastapi import APIRouter, Query, Request, status
 from fastapi.responses import JSONResponse
 
@@ -52,13 +50,13 @@ async def get_anniversary_by_id(anniversary_id: str, request: Request):
 @router.get("s", responses=anniversary_get_multi_response)
 async def get_anniversaries(
     request: Request,
-    skip: Optional[int] = Query(
-        default=0, description="페이지네이션 시작 값", example=0
+    skip: int | None = Query(default=0, description="페이지네이션 시작 값", example=0),
+    limit: int
+    | None = Query(default=0, description="페이지네이션 종료 값", example=100),
+    sort: list[str]
+    | None = Query(
+        default=None, description="정렬을 위한 쿼리 파라미터", example="name.korean asc"
     ),
-    limit: Optional[int] = Query(
-        default=0, description="페이지네이션 종료 값", example=100
-    ),
-    sort: Optional[List[str]] = Query(None),
 ):
     """
     기념일 전체 또는 페이지네이션 조회

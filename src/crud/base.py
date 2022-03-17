@@ -1,4 +1,4 @@
-from typing import Generic, List, Optional, TypeVar
+from typing import Generic, TypeVar
 
 from bson.objectid import InvalidId, ObjectId
 from fastapi import Request
@@ -14,7 +14,7 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
     def __init__(self, collection: str) -> None:
         self.collection = collection
 
-    async def get_one(self, request: Request, id: str) -> Optional[dict]:
+    async def get_one(self, request: Request, id: str) -> dict | None:
         try:
             document = await request.app.db[self.collection].find_one(
                 {"_id": ObjectId(id)}
@@ -31,15 +31,12 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
         request: Request,
         skip: int,
         limit: int,
-        sort: Optional[List[str]],
-    ) -> Optional[List[dict]]:
+        sort: list[str] | None,
+    ) -> list[dict] | None:
         query = request.app.db[self.collection].find()
 
         if sort:
             sort_field = []
-
-            if not type(sort) is list:
-                sort = list(type)
 
             for query_string in sort:
                 field, option = query_string.split(" ")

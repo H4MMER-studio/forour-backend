@@ -1,20 +1,27 @@
-from typing import Dict, List, Optional
-
 from pydantic import BaseModel
 
 
 class ResultBase(BaseModel):
-    flower_name: str
-    flower_description: str
-    images: Dict[str, str]
-    mbti: str
-    mbti_title: str
-    mbti_description: str
-    mbti_relation: List[Dict[str, str]]
-    mbti_count: int = 0
+    flower_name: str | None
+    flower_description: str | None
+    images: dict[str, str] | None
+    mbti: str | None
+    mbti_title: str | None
+    mbti_description: str | None
+    mbti_relation: list[dict[str, str]] | None
+    mbti_count: int | None = 0
 
 
 class CreateResult(ResultBase):
+    flower_name: str
+    flower_description: str
+    images: dict[str, str]
+    mbti: str
+    mbti_title: str
+    mbti_description: str
+    mbti_relation: list[dict[str, str]]
+    mbti_count: int = 0
+
     class Config:
         schema_extra = {
             "example": {
@@ -34,15 +41,6 @@ class CreateResult(ResultBase):
 
 
 class UpdateResult(ResultBase):
-    flower_name: Optional[str]
-    flower_description: Optional[str]
-    images: Optional[Dict[str, str]]
-    mbti: Optional[str]
-    mbti_title: Optional[str]
-    mbti_description: Optional[str]
-    mbti_relation: Optional[List[Dict[str, str]]]
-    mbti_count: Optional[int]
-
     class Config:
         schema_extra = {
             "example": {

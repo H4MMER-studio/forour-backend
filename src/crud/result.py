@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from fastapi import Request
 from pymongo import ASCENDING, DESCENDING
 
@@ -9,7 +7,7 @@ from src.util import answers_parser
 
 
 class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
-    async def get_one(self, request: Request, answers: str) -> Optional[dict]:
+    async def get_one(self, request: Request, answers: str) -> dict | None:
         answer = answers_parser(answers=answers)
 
         await request.app.db[self.collection].update_one(
@@ -90,9 +88,8 @@ class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
         request: Request,
         skip: int,
         limit: int,
-        sort: Optional[List[str]],
-    ) -> Optional[List[dict]]:
-
+        sort: list[str],
+    ) -> list[dict] | None:
         query = [
             {"$unwind": "$mbti_relation"},
             {
@@ -146,9 +143,6 @@ class CRUDResult(CRUDBase[CreateResult, UpdateResult]):
 
         if sort:
             sort_field = {}
-
-            if not type(sort) is list:
-                sort = list(type)
 
             for query_string in sort:
                 field, option = query_string.split(" ")

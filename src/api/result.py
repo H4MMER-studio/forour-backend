@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from fastapi import APIRouter, Query, Request, status
 from fastapi.responses import JSONResponse
 
@@ -55,9 +53,10 @@ async def get_result_by_answers(
 @router.get("s", responses=result_get_multi_response)
 async def get_results(
     request: Request,
-    skip: int = Query(default=0, description="페이지네이션 시작 값", example=0),
-    limit: int = Query(default=0, description="페이지네이션 종료 값", example=100),
-    sort: Optional[List[str]] = Query(
+    skip: int | None = Query(default=0, description="페이지네이션 시작 값", example=0),
+    limit: int
+    | None = Query(default=0, description="페이지네이션 종료 값", example=100),
+    sort: list[str] = Query(
         default=["mbti-count desc"],
         description="정렬을 위한 쿼리 파라미터",
         example="mbti+desc",

@@ -1,9 +1,7 @@
-from typing import Tuple
-
 from src.core import get_settings
 
 
-def compare_answers(answers: str, pair: Tuple[str, str]) -> str:
+def compare_answers(answers: str, pair: tuple[str, str]) -> str:
     first_value_count = answers.count(pair[0])
     second_value_count = answers.count(pair[1])
 

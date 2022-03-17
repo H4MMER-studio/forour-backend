@@ -1,14 +1,15 @@
-from typing import Dict, Optional
-
 from pydantic import BaseModel
 
 
 class AnniversaryBase(BaseModel):
-    name: Dict[str, str]
-    image: str
+    name: dict[str, str] | None
+    image: str | None
 
 
 class CreateAnniversary(AnniversaryBase):
+    name: dict[str, str]
+    image: str
+
     class Config:
         schema_extra = {
             "example": {
@@ -19,9 +20,6 @@ class CreateAnniversary(AnniversaryBase):
 
 
 class UpdateAnniversary(AnniversaryBase):
-    name: Optional[Dict[str, str]]
-    image: Optional[str]
-
     class Config:
         schema_extra = {
             "example": {"name": {"korea": "사랑", "english": "Eternal\nLove"}}

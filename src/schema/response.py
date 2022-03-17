@@ -1,10 +1,8 @@
-from typing import Dict, List, Optional, Union
-
 from pydantic import BaseModel
 
 
 class GetResponseModel(BaseModel):
-    data: Optional[Union[List[dict], Dict[str, Union[str, int]]]]
+    data: list[dict] | dict[str, str | int] | None
 
 
 class AlterResponseModel(BaseModel):
@@ -12,4 +10,4 @@ class AlterResponseModel(BaseModel):
 
 
 class ErrorResponseModel(BaseModel):
-    detail: Union[str, List[Dict[str, str]]]
+    detail: str | list[dict[str, str]]

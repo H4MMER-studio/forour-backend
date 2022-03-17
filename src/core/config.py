@@ -1,5 +1,4 @@
 from functools import lru_cache
-from typing import List, Tuple
 
 from pydantic import BaseSettings, Field
 
@@ -14,7 +13,7 @@ class Settings(BaseSettings):
     PROJECT_VERSION: int = 2
     PROJECT_DESCRIPTION: str = "MBTI 검사를 통한 상대방에 어울리는 꽃 추천 서비스, ForOur API 문서"
     COMMON_API: str = "/api"
-    MBTI_PAIR: List[Tuple[str, str]] = [
+    MBTI_PAIR: list[tuple[str, str]] = [
         ("E", "I"),
         ("N", "S"),
         ("F", "T"),

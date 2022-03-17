@@ -1,15 +1,17 @@
-from typing import Dict, List, Optional, Union
-
 from pydantic import BaseModel
 
 
 class QuestionBase(BaseModel):
-    question: str
-    question_order: int
-    answers: List[Dict[str, Union[int, str]]]
+    question: str | None
+    question_order: int | None
+    answers: list[dict[str, int | str]] | None
 
 
 class CreateQuestion(QuestionBase):
+    question: str
+    question_order: int
+    answers: list[dict[str, int | str]]
+
     class Config:
         schema_extra = {
             "example": {
@@ -32,10 +34,6 @@ class CreateQuestion(QuestionBase):
 
 
 class UpdateQuestion(QuestionBase):
-    question: Optional[str]
-    question_order: Optional[int]
-    answers: Optional[List[Dict[str, Union[int, str]]]]
-
     class Config:
         schema_extra = {
             "example": {
