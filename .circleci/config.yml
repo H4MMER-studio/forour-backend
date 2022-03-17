@@ -39,7 +39,7 @@ commands:
 jobs:
   ci-cd:
     docker:
-      - image: 'cimg/python:3.9'
+      - image: "cimg/python:3.10"
     steps:
       - checkout
       - python/install-packages:
