@@ -4,23 +4,21 @@
 
 ## :books: Table Of Contents
 
-* [:tada: Introduce](#tada-introduce)
-    * [:raising_hand: ForOur](#raising_hand-forour)
-    * [:arrows_counterclockwise: Service Proces](#arrows_counterclockwise-service-process)
-    * [:fire: Motivation](#fire-motivation)
-    * [:information_desk_person: Features](#information_desk_person-features)
-    * [:rocket: Build Process](#rocket-build-process)
-    * [:no_entry_sign: Limitation](#no_entry_sign-limitation)
-* [:recycle: Refactor](#recycle-refactor)
-    * [:pushpin: API Communication](#pushpin-api-communication)
-    * [:pushpin: API Document](#pushpin-api-document)
-    * [:pushpin: CI/CD](#pushpin-cicd)
-    * [:pushpin: Database](#pushpin-database)
-    * [:pushpin: Formatting and Linting](#pushpin-formatting-and-linting)
-    * [:pushpin: Package Manager](#pushpin-package-manager)
-    * [:pushpin: Unittest](#pushpin-unittest)
-
-
+- [:tada: Introduce](#tada-introduce)
+  - [:raising_hand: ForOur](#raising_hand-forour)
+  - [:arrows_counterclockwise: Service Proces](#arrows_counterclockwise-service-process)
+  - [:fire: Motivation](#fire-motivation)
+  - [:information_desk_person: Features](#information_desk_person-features)
+  - [:rocket: Build Process](#rocket-build-process)
+  - [:no_entry_sign: Limitation](#no_entry_sign-limitation)
+- [:recycle: Refactor](#recycle-refactor)
+  - [:pushpin: API Communication](#pushpin-api-communication)
+  - [:pushpin: API Document](#pushpin-api-document)
+  - [:pushpin: CI/CD](#pushpin-cicd)
+  - [:pushpin: Database](#pushpin-database)
+  - [:pushpin: Formatting and Linting](#pushpin-formatting-and-linting)
+  - [:pushpin: Package Manager](#pushpin-package-manager)
+  - [:pushpin: Unittest](#pushpin-unittest)
 
 ### :tada: Introduce
 
@@ -42,7 +40,6 @@
 
 기존 본인의 성향만 분석하던 서비스의 경우 본인의 결과를 공유하여 타인의 참여를 유도하지만 타인의 성향을 분석할 경우 이후 본인이 분석한 타인에게 본인의 성향을 대신 분석해줄 것을 요구하기 때문에 훨씬 강력한 **유입 동기**로 작용합니다.
 
-
 ##### For Application
 
 애플리케이션 측면에서 부흥하고 있는 파이썬 웹 프레임워크 **FastAPI**와 함께 NoSQL 데이터베이스 종류 중 하나인 **MongoDB**를 활용하여 **비동기적 통신**을 구축했다는 의의가 있습니다.
@@ -51,12 +48,7 @@
 
 이러한 맥락에서 본 프로젝트는 FastAPI 및 MongoDB를 활용한 비동기적 통신의 좋은 예시가 될 수 있습니다. 구체적으로 구현된 기능에 관련해서는 바로 다음에 이어지는 [:information_desk_person: Features](#information-desk-person-features) 항목과 [:recycle: Refactor](recycle-refactor) 항목을 통해 확인하실 수 있습니다.
 
-
-
-
-
 #### :information_desk_person: Features
-
 
 #### :rocket: Build Process
 
@@ -74,12 +66,7 @@
 
 ##### For Application
 
-
 <p align="right">⬆️ <a href="#top">Back to Top</a></p>
-
-
-
-
 
 ### :recycle: Refactor
 
@@ -93,13 +80,11 @@
 
 비동기적(Aysnchronous) 통신으로 변경했습니다.
 
-
 #### :pushpin: API Document
 
 ##### Before
 
 ##### After
-
 
 #### :pushpin: CI/CD
 
@@ -115,8 +100,6 @@
 
 ![CircleCI Dashboard]()
 
-
-
 #### :pushpin: Database
 
 ##### Before
@@ -125,12 +108,9 @@
 
 ![ERD](/images/ERD.png)
 
-
-
 ##### After
 
 [MongoDB]() 및 [Motor]()를 활용하여 NoSQL를 사용한 데이터베이스로 변경했습니다.
-
 
 #### :pushpin: Formatting and Linting
 
@@ -142,9 +122,6 @@
 
 [pre-commit](.pre-commit-config.yaml) 및 [flake8](), [isort](), [black]()을 활용하여 포맷 및 린팅을 구성했습니다.
 
-
-
-
 #### :pushpin: Pacakge Manager
 
 ##### Before
@@ -155,13 +132,10 @@
 
 [Poetry]()를 사용하여 패키지를 관리하는 것으로 변경했습니다.
 
-
-
 #### :pushpin: Unittest
 
 ##### Before
 
 ##### After
-
 
 <p align="right">⬆️ <a href="#top">Back to Top</a></p>
